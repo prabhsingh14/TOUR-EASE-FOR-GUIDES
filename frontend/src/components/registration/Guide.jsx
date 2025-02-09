@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
-import Footer from '../layout/Footer';
-import { IoBag, IoPerson, IoMail, IoCall, IoHome, IoCloudUpload, IoCalendar, IoMaleFemale } from "react-icons/io5";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import Footer from "../layout/Footer";
+import { IoBag, IoPerson, IoMail, IoCall, IoHome, IoCloudUpload, IoMaleFemale, IoCalendar } from "react-icons/io5";
 
 const Guide = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        phone: '',
-        dob: '',
-        gender: '',
-        address: '',
+        fullName: "",
+        email: "",
+        phone: "",
+        dob: null,
+        gender: "",
+        address: "",
         idProof: null,
     });
 
-    const [fileName, setFileName] = useState('');
-    const [fileError, setFileError] = useState('');
+    const [fileName, setFileName] = useState("");
+    const [fileError, setFileError] = useState("");
+    const [isCalendarOpen, setCalendarOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const calendarRef = useRef(null);
+    const dobInputRef = useRef(null);
 
-    const isFormComplete = Object.values(formData).every(value => value !== '' && value !== null);
+    const isFormComplete = Object.values(formData).every(value => value !== "" && value !== null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,16 +33,87 @@ const Guide = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+            const validTypes = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
             if (validTypes.includes(file.type)) {
                 setFormData({ ...formData, idProof: file });
                 setFileName(file.name);
-                setFileError('');
+                setFileError("");
             } else {
-                setFileError('Invalid file type. Only PNG, JPG, JPEG, and PDF are allowed.');
-                setFileName('');
+                setFileError("Invalid file type. Only PNG, JPG, JPEG, and PDF are allowed.");
+                setFileName("");
             }
         }
+    };
+
+    const handleDateClick = (day) => {
+        setSelectedDate(new Date(selectedYear, selectedMonth, day));
+        setFormData({ ...formData, dob: new Date(selectedYear, selectedMonth, day) });
+        setCalendarOpen(false);
+    };
+
+    const toggleCalendar = () => {
+        setCalendarOpen(!isCalendarOpen);
+    };
+
+    const handleMonthChange = (event) => {
+        setSelectedMonth(parseInt(event.target.value));
+    };
+
+    const handleYearChange = (event) => {
+        setSelectedYear(parseInt(event.target.value));
+    };
+
+    const handleOutsideClick = (event) => {
+        if (calendarRef.current && !calendarRef.current.contains(event.target) && !dobInputRef.current.contains(event.target)) {
+            setCalendarOpen(false);
+        }
+    };
+
+    const handleSubmit = () => {
+        if (isFormComplete) {
+            navigate('/register-success', { 
+                state: { 
+                    type: "Guide", 
+                    description: "Are you passionate about sharing the stories, culture, and hidden gems of your destination? Join us and turn your knowledge into unforgettable experiences for travelers from around the world" 
+                } 
+            });
+        }
+    };
+    
+
+    useEffect(() => {
+        document.addEventListener("click", handleOutsideClick);
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+
+    const renderCalendarDays = () => {
+        const firstDayOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
+        const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+
+        let days = [];
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            days.push(<div key={`empty-${i}`} className="text-gray-400"></div>);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            days.push(
+                <div
+                    key={day}
+                    className={`p-2 rounded-full cursor-pointer text-center ${
+                        selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === selectedMonth
+                            ? "bg-[#FF6F00] text-white"
+                            : "hover:bg-gray-200"
+                    }`}
+                    onClick={() => handleDateClick(day)}
+                >
+                    {day}
+                </div>
+            );
+        }
+
+        return days;
     };
 
     return (
@@ -87,16 +166,43 @@ const Guide = () => {
                                     onChange={handleChange} 
                                 />
                             </div>
-                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
-                                <IoCalendar className="text-gray-500 mr-3" />
-                                <input 
-                                    type="date" 
-                                    name="dob" 
-                                    className="w-full outline-none bg-transparent text-gray-700"
-                                    onChange={handleChange} 
-                                />
+                            <div className="relative flex flex-col flex-1">
+                                <div className="flex items-center border rounded-lg px-4 py-3 bg-white cursor-pointer relative" onClick={toggleCalendar} 
+                                    ref={dobInputRef}>
+                                    <IoCalendar className="text-gray-500 mr-3" />
+                                    <input
+                                        type="text"
+                                        value={selectedDate ? selectedDate.toDateString() : ""}
+                                        placeholder="Select DOB"
+                                        readOnly
+                                        className="w-full outline-none bg-transparent text-gray-700 cursor-pointer"
+                                    />
+                                </div>
+
+                                {isCalendarOpen && (
+                                    <div className="absolute bg-white shadow-lg p-4 rounded-md w-64 mt-1 z-10" ref={calendarRef}>
+                                        <div className="flex justify-between mb-2">
+                                            <select value={selectedMonth} onChange={handleMonthChange} className="border p-1 rounded">
+                                                {Array.from({ length: 12 }, (_, i) => (
+                                                    <option key={i} value={i}>
+                                                        {new Date(2000, i, 1).toLocaleString("default", { month: "long" })}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <select value={selectedYear} onChange={handleYearChange} className="border p-1 rounded">
+                                                {Array.from({ length: 100 }, (_, i) => (
+                                                    <option key={i} value={new Date().getFullYear() - i}>
+                                                        {new Date().getFullYear() - i}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        <div className="grid grid-cols-7 gap-1">{renderCalendarDays()}</div>
+                                    </div>
+                                )}
                             </div>
                         </div>
+                        
                         <div className="flex items-center border rounded-lg px-4 py-3 bg-white">
                             <IoMaleFemale className="text-gray-500 mr-3" />
                             <select 
@@ -137,8 +243,10 @@ const Guide = () => {
 
                     {/* Submit Button */}
                     <button
+                        onClick={handleSubmit}
                         className={`w-full px-6 py-3 rounded-lg font-semibold mt-6 transition ${
-                            isFormComplete ? 'bg-[#FF6F00] text-white hover:bg-[#e65a00]' : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                            isFormComplete ? "bg-[#FF6F00] text-white hover:bg-[#e65a00] cursor-pointer" 
+                            : "bg-gray-400 text-gray-200 cursor-not-allowed"
                         }`}
                         disabled={!isFormComplete}
                     >
@@ -149,6 +257,6 @@ const Guide = () => {
             <Footer />
         </div>
     );
-}
+};
 
 export default Guide;

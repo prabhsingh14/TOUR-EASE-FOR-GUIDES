@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import Guide from './components/registration/Guide'
 import Agency from './components/registration/Agency'
+import Success from './components/registration/Success'
 import "@fontsource/poppins";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register-guide" element={<Guide />} />
         <Route path="/register-agency" element={<Agency />} />
+        <Route path='/register-success' element={<Success />} />
       </Routes>
     </div>
   )
