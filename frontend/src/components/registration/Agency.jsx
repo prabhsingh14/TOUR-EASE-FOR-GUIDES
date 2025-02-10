@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import Footer from "../layout/Footer";
-import { IoBag, IoPerson, IoMail, IoCall, IoHome, IoCloudUpload, IoMaleFemale, IoCalendar } from "react-icons/io5";
+import { IoBag, IoPerson, IoMail, IoCall, IoHome, IoCloudUpload, IoMaleFemale, IoCalendar, IoIdCard } from "react-icons/io5";
+import { FaLocationDot, FaBuilding } from "react-icons/fa6";
 
 const Agency = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-      fullName: "",
-      dob: "",
-      email: "",
-      gender: "",
-      phone: "",
-      permanentAddress: "",
-      firmName: "",
-      headOffice: "",
-      taxId: "",
-      businessRegNo: "",
-      govId: null,
-      certificateIncorporation: null,
-      tradeLicense: null,
+        fullName: "",
+        dob: "",
+        email: "",
+        gender: "",
+        phone: "",
+        address: "",
+        firmName: "",
+        headOffice: "",
+        taxId: "",
+        businessRegNo: "",
+        govId: null,
+        certificateIncorporation: null,
+        tradeLicense: null,
     });
 
     const [fileName, setFileName] = useState("");
@@ -37,20 +38,23 @@ const Agency = () => {
     };
 
     const handleFileChange = (e) => {
+        const { name } = e.target; // Get the input field name
         const file = e.target.files[0];
+    
         if (file) {
             const validTypes = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
             if (validTypes.includes(file.type)) {
-                setFormData({ ...formData, idProof: file });
-                setFileName(file.name);
+                setFormData(prevState => ({
+                    ...prevState,
+                    [name]: file, // Update only the specific file field
+                }));
                 setFileError("");
             } else {
                 setFileError("Invalid file type. Only PNG, JPG, JPEG, and PDF are allowed.");
-                setFileName("");
             }
         }
-    };
-
+    };    
+    
     const handleDateClick = (day) => {
         setSelectedDate(new Date(selectedYear, selectedMonth, day));
         setFormData({ ...formData, dob: new Date(selectedYear, selectedMonth, day) });
@@ -131,7 +135,7 @@ const Agency = () => {
                         <IoBag className="text-6xl text-[#FF6F00] mx-auto" />
                         <h2 className="text-[#1976D2] text-3xl font-bold mt-5">Register as an Agency</h2>
                         <p className="text-gray-600 mt-3 leading-relaxed">
-                          Are you looking to expand your offerings and attract more travelers with unique, curated experiences? Join forces with TourEase and become part of a network dedicated to delivering exceptional travel adventures.
+                            Are you looking to expand your offerings and attract more travelers with unique, curated experiences? Join forces with TourEase and become part of a network dedicated to delivering exceptional travel adventures.
                         </p>
                     </div>
 
@@ -177,6 +181,7 @@ const Agency = () => {
                                     <IoCalendar className="text-gray-500 mr-3" />
                                     <input
                                         type="text"
+                                        name="dob"
                                         value={selectedDate ? selectedDate.toDateString() : ""}
                                         placeholder="Select DOB"
                                         readOnly
@@ -209,34 +214,81 @@ const Agency = () => {
                         </div>
                         
                         <div className="flex flex-row items-center gap-4">
-                          <div className="flex items-center border rounded-lg px-4 py-3 bg-white">
-                              <IoMaleFemale className="text-gray-500 mr-3" />
-                              <select 
-                                  name="gender" 
-                                  className="w-full outline-none bg-transparent text-gray-700" 
-                                  onChange={handleChange}
-                              >
-                                  <option value="">Select Gender</option>
-                                  <option value="Male">Male</option>
-                                  <option value="Female">Female</option>
-                                  <option value="Other">Other</option>
-                              </select>
-                          </div>
+                            <div className="flex items-center border rounded-lg px-4 py-3 bg-white">
+                                <IoMaleFemale className="text-gray-500 mr-3" />
+                                <select 
+                                    name="gender" 
+                                    className="w-full outline-none bg-transparent text-gray-700" 
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
 
-                          <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
-                              <IoHome className="text-gray-500 mr-3" />
-                              <input 
-                                  type="text" 
-                                  name="address" 
-                                  placeholder="Enter your address" 
-                                  className="w-full outline-none bg-transparent text-gray-700"
-                                  onChange={handleChange} 
-                              />
-                          </div>
+                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
+                                <IoHome className="text-gray-500 mr-3" />
+                                <input 
+                                    type="text" 
+                                    name="address" 
+                                    placeholder="Enter your address" 
+                                    className="w-full outline-none bg-transparent text-gray-700"
+                                    onChange={handleChange} 
+                                />
+                            </div>
                         </div>
                     </div>
                     
                     {/* Business details section */}
+                    <h3 className="text-xl font-semibold mt-6 text-gray-700">Business Details</h3>
+                    <div className="mt-4 space-y-4">
+                        <div className="flex flex-row items-center gap-4">
+                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
+                                <IoPerson className="text-gray-500 mr-3" />
+                                <input 
+                                    type="text" 
+                                    name="firmName" 
+                                    placeholder="Firm Name" 
+                                    className="w-full outline-none bg-transparent text-gray-700"
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
+                                <FaLocationDot className="text-gray-500 mr-3" />
+                                <input 
+                                    type="text" 
+                                    name="headOffice" 
+                                    placeholder="Firm Address" 
+                                    className="w-full outline-none bg-transparent text-gray-700"
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-row items-center gap-4">
+                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
+                                <IoIdCard className="text-gray-500 mr-3" />
+                                <input 
+                                    type="text" 
+                                    name="taxId" 
+                                    placeholder="Tax Identification Number" 
+                                    className="w-full outline-none bg-transparent text-gray-700"
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                            <div className="flex items-center border rounded-lg px-4 py-3 flex-1 bg-white">
+                                <FaBuilding className="text-gray-500 mr-3" />
+                                <input 
+                                    type="text" 
+                                    name="businessRegNo" 
+                                    placeholder="Business Registration Number" 
+                                    className="w-full outline-none bg-transparent text-gray-700"
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Certificates & ID Proof Section */}
                     <h3 className="text-xl font-semibold mt-6 text-gray-700">Certificates & Proofs</h3>
@@ -245,15 +297,15 @@ const Agency = () => {
                             <div className="flex items-center border rounded-lg px-4 py-3 flex-1 relative bg-white">
                                 <IoCloudUpload className="text-gray-500 mr-3" />
                                 <label className="w-full cursor-pointer text-gray-500">
-                                    <span className="text-gray-700">{fileName || "Upload Government ID Proof"}</span>
-                                    <input type="file" className="hidden" onChange={handleFileChange} />
+                                    <span className="text-gray-700">{formData.govId?.name || "Upload Government ID Proof"}</span>
+                                    <input type="file" name="govId" className="hidden" onChange={handleFileChange} />
                                 </label>
                             </div>
                             <div className="flex items-center border rounded-lg px-4 py-3 flex-1 relative bg-white">
                                 <IoCloudUpload className="text-gray-500 mr-3" />
                                 <label className="w-full cursor-pointer text-gray-500">
-                                    <span className="text-gray-700">{fileName || "Upload Certificate of Incorporation"}</span>
-                                    <input type="file" className="hidden" onChange={handleFileChange} />
+                                    <span className="text-gray-700">{formData.certificateIncorporation?.name || "Upload Certificate of Incorporation"}</span>
+                                    <input type="file" name="certificateIncorporation" className="hidden" onChange={handleFileChange} />
                                 </label>
                             </div>
                         </div>
@@ -261,8 +313,8 @@ const Agency = () => {
                             <div className="flex items-center border rounded-lg px-4 py-3 flex-1 relative bg-white">
                                 <IoCloudUpload className="text-gray-500 mr-3" />
                                 <label className="w-full cursor-pointer text-gray-500">
-                                    <span className="text-gray-700">{fileName || "Upload Trade License"}</span>
-                                    <input type="file" className="hidden" onChange={handleFileChange} />
+                                    <span className="text-gray-700">{formData.tradeLicense?.name || "Upload Trade License"}</span>
+                                    <input type="file" name="tradeLicense" className="hidden" onChange={handleFileChange} />
                                 </label>
                             </div>
                         </div>

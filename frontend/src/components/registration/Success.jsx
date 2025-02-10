@@ -21,7 +21,7 @@ const Success = () => {
                 <Checkmark size={60} color="green"/>
                 <p className='uppercase text-green-500 font-bold mt-2'>Success!</p>
                 <p className='text-gray-600 font-medium mt-2'>Thank you for registering with us.
-                Your application has been recorded and we’ll reach out to you over you mail. Please keep an eye on you mail ID for further updates.</p>
+                Your application has been recorded and we’ll reach out to you over your mail. Please keep an eye on your mail ID for further updates.</p>
             </section>
             <Footer />
         </main>

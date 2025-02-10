@@ -5,6 +5,10 @@ import Home from './pages/Home'
 import Guide from './components/registration/Guide'
 import Agency from './components/registration/Agency'
 import Success from './components/registration/Success'
+import Contact from './pages/Contact'
+import TermsAndConditions from './pages/TermsAndConditions'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import About from './pages/About'
 import "@fontsource/poppins";
 
 function App() {
@@ -16,6 +20,10 @@ function App() {
         <Route path="/register-guide" element={<Guide />} />
         <Route path="/register-agency" element={<Agency />} />
         <Route path='/register-success' element={<Success />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/about-us" element={<About />} />
       </Routes>
     </div>
   )
