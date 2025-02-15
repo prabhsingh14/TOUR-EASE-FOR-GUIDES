@@ -52,8 +52,8 @@ const PrivacyPolicy = () => {
                     </h2>
                     <p className="text-gray-600 mb-4">
                         You have the right to access, update, or delete your personal information. If you wish to exercise these rights, please contact us at{' '}
-                        <a href="mailto:privacy@example.com" className="text-blue-500 hover:underline">
-                            privacy@example.com
+                        <a href="mailto:prabhsingh1407@gmail.com" className="text-blue-500 hover:underline">
+                            prabhsingh1407@gmail.com
                         </a>.
                     </p>
 

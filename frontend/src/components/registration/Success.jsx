@@ -12,8 +12,8 @@ const Success = () => {
     return (
         <main className="min-h-screen flex flex-col justify-between overflow-x-hidden">
             <section className='bg-white p-12 shadow-lg mx-auto my-12 w-full max-w-4xl rounded-2xl border border-gray-200 text-center'>
-                <IoBag className="text-5xl text-[#FF6F00] mx-auto" />
-                <h2 className="text-[#1976D2] text-3xl font-bold mt-5">Register as {type}</h2>
+                <IoBag className="text-5xl text-[#F97316] mx-auto" />
+                <h2 className="text-[#1D4ED8] text-3xl font-bold mt-5">Register as {type}</h2>
                 <p className="font-medium mt-6 text-gray-800 leading-relaxed px-4 mb-10">
                     {description}
                 </p>

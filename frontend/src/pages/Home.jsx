@@ -9,36 +9,36 @@ const Home = () => {
         <main className="min-h-screen flex flex-col justify-between overflow-x-hidden">
             {/* section-1 */}
             <section className="bg-white p-10 shadow-lg mx-auto my-12 w-full max-w-3xl rounded-2xl border border-gray-200 text-center">
-                <h1 className="text-[#1976D2] text-4xl font-bold"
+                <h1 className="text-[#1D4ED8] text-4xl font-bold"
                     style={{ fontFamily: '"Segoe Script", cursive' }}>
-                    Tour<span className="text-[#FF6F00]">Ease</span>
+                    Smooth<span className="text-[#F97316]">Trips</span>
                 </h1>
                 <p className="text-sm text-gray-600 mt-1"
                     style={{ fontFamily: '"Segoe Script", cursive' }}>
                     Not just a tour, but a memory!
                 </p>
                 <p className="font-medium mt-6 text-gray-800 leading-relaxed px-4">
-                    "Join <span className="text-[#1976D2] font-bold"
+                    "Join <span className="text-[#1D4ED8] font-bold"
                         style={{ fontFamily: '"Segoe Script", cursive' }}>
-                            Tour<span className="text-[#FF6F00]">Ease</span>
-                        </span> and connect with travelers seeking authentic and enriching experiences in Punjab. As a verified guide or agency, 
+                            Smooth<span className="text-[#F97316]">Trips</span>
+                        </span> and connect with travelers seeking authentic and enriching experiences in India. As a verified guide or agency, 
                     you'll have the opportunity to showcase your expertise, share your stories, and provide memorable tours to tourists from around the 
-                    world. <span className="text-[#1976D2] font-bold"
+                    world. <span className="text-[#1D4ED8] font-bold"
                             style={{ fontFamily: '"Segoe Script", cursive' }}>
-                                Tour<span className="text-[#FF6F00]">Ease</span>
+                                Smooth<span className="text-[#F97316]">Trips</span>
                             </span> ensures a seamless booking process, secure payments, and a trusted environment where you can focus on 
-                            delivering top-notch experiences. Partner with <span className="text-[#1976D2] font-bold"
+                            delivering top-notch experiences. Partner with <span className="text-[#1D4ED8] font-bold"
                                                                             style={{ fontFamily: '"Segoe Script", cursive' }}>
-                                                                                Tour<span className="text-[#FF6F00]">Ease</span>
+                                                                                Smooth<span className="text-[#F97316]">Trips</span>
                                                                             </span> to expand your reach, grow your business, and become a part of 
-                    Punjab’s most reliable travel network!"
+                    India's most reliable travel network!"
                 </p>
             </section>
 
             {/* section-2 */}
             <section className='flex flex-col items-center justify-center my-12'>
-                <IoBag className="text-5xl text-[#FF6F00]" />
-                <h2 className='text-[#1976D2] text-3xl font-bold mt-4'>Work with us</h2>
+                <IoBag className="text-5xl text-[#F97316]" />
+                <h2 className='text-[#1D4ED8] text-3xl font-bold mt-4'>Work with us</h2>
                 <div className='flex flex-wrap justify-center gap-8 mt-8'>
                     {/* Guide Card */}
                     <div className='flex flex-col bg-white p-6 shadow-lg rounded-xl border border-gray-200 w-[380px] text-center hover:shadow-xl transition-shadow duration-300'>
@@ -53,7 +53,7 @@ const Home = () => {
                             <li>Access to premium clients</li>
                         </ul>
                         <Link to="/register-guide"
-                            className="mt-4 inline-flex items-center justify-center gap-2 text-white bg-[#FF6F00] py-2 px-5 rounded-lg hover:bg-[#E65A00] transition-all duration-300">
+                            className="mt-4 inline-flex items-center justify-center gap-2 text-white bg-[#F97316] py-2 px-5 rounded-lg">
                             Register as a Guide <FaArrowRight className='translate-y-[1.5px] text-[14px]'/>
                         </Link>
                     </div>
@@ -71,7 +71,7 @@ const Home = () => {
                             <li>Join Punjab’s top travel network</li>
                         </ul>
                         <Link to="/register-agency"
-                            className="mt-4 inline-flex items-center justify-center gap-2 text-white bg-[#FF6F00] py-2 px-5 rounded-lg hover:bg-[#E65A00] transition-all duration-300">
+                            className="mt-4 inline-flex items-center justify-center gap-2 text-white bg-[#F97316] py-2 px-5 rounded-lg">
                             Register as an Agency <FaArrowRight className='translate-y-[1.5px] text-[14px]'/>
                         </Link>
                     </div>

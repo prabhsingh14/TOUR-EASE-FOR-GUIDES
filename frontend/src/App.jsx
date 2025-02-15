@@ -13,7 +13,7 @@ import "@fontsource/poppins";
 
 function App() {
   return (
-    <div className="w-screen min-h-screen bg-[#FF6F0026] flex flex-col">
+    <div className="w-screen min-h-screen bg-[#F7F5F2] flex flex-col">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

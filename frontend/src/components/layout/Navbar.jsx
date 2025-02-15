@@ -12,13 +12,13 @@ const Navbar = (props) => {
     let setIsLoggedIn = props.setIsLoggedIn;
 
     return (
-        <div className='bg-white shadow-[0px_24px_20px_-10px_rgba(255,111,0,0.15)] w-full'>
+        <div className='bg-white shadow-[0px_24px_20px_-10px_rgba(0,0,0,0.08)] w-full'>
             <div className='h-[84px] flex items-center justify-between px-6 container mx-auto max-w-screen-lg'>
 
                 {/* logo */}
                 <Link to={'/'} className='flex flex-col' style={{ fontFamily: '"Segoe Script", cursive' }}>
                     <p className='text-[#1976D2] text-[32px] leading-[51.39px] font-bold'>
-                        Tour<span className='text-[#FF6F00]'>Ease</span>
+                        Smooth<span className='text-[#FF6F00]'>Trips</span>
                     </p>
                     <p className='text-[12px] leading-[19.27px]'>Not just a tour, but a memory!</p>
                 </Link>

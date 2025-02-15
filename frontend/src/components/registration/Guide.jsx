@@ -103,7 +103,7 @@ const Guide = () => {
                     key={day}
                     className={`p-2 rounded-full cursor-pointer text-center ${
                         selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === selectedMonth
-                            ? "bg-[#FF6F00] text-white"
+                            ? "bg-[#F97316] text-white"
                             : "hover:bg-gray-200"
                     }`}
                     onClick={() => handleDateClick(day)}
@@ -122,8 +122,8 @@ const Guide = () => {
                 <div className="bg-white p-8 shadow-lg rounded-2xl max-w-2xl w-full mx-auto mt-8">
                     {/* Header */}
                     <div className="text-center">
-                        <IoBag className="text-6xl text-[#FF6F00] mx-auto" />
-                        <h2 className="text-[#1976D2] text-3xl font-bold mt-5">Register as a Guide</h2>
+                        <IoBag className="text-6xl text-[#F97316] mx-auto" />
+                        <h2 className="text-[#1D4ED8] text-3xl font-bold mt-5">Register as a Guide</h2>
                         <p className="text-gray-600 mt-3 leading-relaxed">
                             Are you passionate about sharing the stories, culture, and hidden gems of your destination? 
                             Join us and turn your knowledge into unforgettable experiences for travelers from around the world.
@@ -239,13 +239,13 @@ const Guide = () => {
                             </label>
                         </div>
                     </div>
-                    {fileError && <p className="text-red-500 text-sm mt-2">{fileError}</p>}
+                    {fileError && <p className="text-[#F97316] text-sm mt-2">{fileError}</p>}
 
                     {/* Submit Button */}
                     <button
                         onClick={handleSubmit}
                         className={`w-full px-6 py-3 rounded-lg font-semibold mt-6 transition ${
-                            isFormComplete ? "bg-[#FF6F00] text-white hover:bg-[#e65a00] cursor-pointer" 
+                            isFormComplete ? "bg-[#F97316] text-white cursor-pointer" 
                             : "bg-gray-400 text-gray-200 cursor-not-allowed"
                         }`}
                         disabled={!isFormComplete}
